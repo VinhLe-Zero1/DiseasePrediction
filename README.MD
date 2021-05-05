@@ -18,7 +18,7 @@ Example:
 request:
 
 {
-    "symptom": "itching"
+    "symptom": "itching, skin_rash"
 }
 
 # Note

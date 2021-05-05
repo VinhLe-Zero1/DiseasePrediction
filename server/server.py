@@ -51,7 +51,7 @@ def hello():
        disease = np.zeros(len(symptomDict.keys()))
        for sym in symptom:
               disease[symptomDict[sym]] = 1
-       result = clf.predict([disease])
+       result = clf.predict([disease])[0]
        return {"result": diseases[result]}
 
 
