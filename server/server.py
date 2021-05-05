@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
 from joblib import load
 import json
+import requests
 import numpy as np
-from config import *
 import ast
+
+from config import MODEL_PATH
 
 app = Flask(__name__)
 
@@ -45,12 +47,12 @@ clf = load(MODEL_PATH)
 
 @app.route('/', methods=['POST'])
 def hello():
-       symptom = str.split(request.form['symptom'][1:-1], sep=",")
+       symptom = str.split(request.get_json(force=True)['symptom'], sep=",")
        disease = np.zeros(len(symptomDict.keys()))
        for sym in symptom:
               disease[symptomDict[sym]] = 1
        result = clf.predict([disease])
-       return {"result": diseases[int(result)]}
+       return {"result": diseases[result]}
 
 
 if __name__ == '__main__':
